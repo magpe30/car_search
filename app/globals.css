@@ -193,6 +193,14 @@
 /* END: Footer styles */
 
 /* START: searchbar styles */
+.searchbar__conatiner{
+  background: white;
+  margin-bottom: 20px;
+  transform: translateY(-150px);
+  border-radius: 10px;
+  box-shadow: 3px 3px 30px #075FA9;
+}
+
 .searchbar {
   @apply flex items-center justify-start max-sm:flex-col w-full relative max-sm:gap-4 max-w-3xl;
 }
