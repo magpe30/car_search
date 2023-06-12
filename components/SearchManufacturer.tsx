@@ -29,7 +29,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                     </Combobox.Button>
                     <Combobox.Input
                         className="search-manufacturer__input"
-                        displayValue={(item: string) => item}
+                        displayValue={(manufacturer: string) => manufacturer}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Volkswagen..."
                     />
@@ -55,7 +55,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                                     filtered.map((item) => {
                                         return <Combobox.Option
                                                     key={item}
-                                                    className={(active) => `relative search-manufacturer__option ${active ? "bg-primary-blue text-white" : "text-grey-900"}`}
+                                                    className={({ active }) => `relative search-manufacturer__option ${active ? "bg-primary-blue text-white" :  "text-grey-900"}`}
                                                     value={item}
                                                 >
                                                 {
@@ -67,7 +67,7 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                                                             {
                                                                 selected ? (
                                                                     <span
-                                                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-pribg-primary-purple"}`}
+                                                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-grey"}`}
                                                                     >
                                                                     </span>
                                                                 ) : null

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { ButtonProps } from '@types';
+import { ButtonProps } from '@/types';
 
 const Button = ({ isDisabled, type, containerStyles, textStyles, title, rightIcon, handleClick }: ButtonProps) => {
     return (
