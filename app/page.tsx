@@ -12,7 +12,7 @@ export default async function Home({ searchParams }: HomeProps) {
     limit: searchParams.limit || 10,
     model: searchParams.model || "",
   });
-  console.log(allData);
+
   const isDataEmpty = !Array.isArray(allData) || allData.length < 1 || !allData;
 
   return (

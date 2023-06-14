@@ -1,4 +1,5 @@
 "use client"
+import { Button } from '@/components';
 import { CarProps } from '@/types';
 import { Dialog, Transition } from "@headlessui/react";
 import Image from 'next/image';
@@ -63,6 +64,13 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                                         ))}
                                     </div>
                                 </div>
+                                <Button
+                                    title='Book now'
+                                    containerStyles='w-full py-[16px] rounded-full bg-[#1769AC]'
+                                    textStyles='text-white text-[14px] leading-[17px] font-bold'
+                                    rightIcon='/right-arrow.svg'
+                                    handleClick={() => console.log("booked")}
+                                />
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>
