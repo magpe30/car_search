@@ -1,6 +1,8 @@
 "use client"
+import { Button, CarDetails } from '@/components';
 import { CarProps } from '@/types';
 import { calculateRent } from '@/utils';
+import Image from "next/image";
 import { useState } from 'react';
 
 interface CarCardProps {
@@ -9,9 +11,9 @@ interface CarCardProps {
 
 const CarCard = ({car}: CarCardProps) => {
     const { city_mpg, year, make, model, transmission, drive } = car;
-
-    const [open, setIsOpen] = useState(false);
     
+    const [isOpen, setIsOpen] = useState(false);
+    console.log(isOpen);
     return (
         <div className="car-card group">
             <div className="car-card content">
@@ -25,6 +27,40 @@ const CarCard = ({car}: CarCardProps) => {
                 {calculateRent(city_mpg, year)}
                 <span className="self-end text-[14px] leading-[17px] font-medium">/day</span>
             </p>
+
+            <div className='relative w-full h-40 my-3 object-contain'>
+                <Image src="/hero.png" alt='car model' fill priority className='object-contain' />
+            </div>
+            <div className="relative flex w-full mt-2">
+                <div className="flex w-full justify-between text-grey">
+                    <div className="group-hover:invisible flex w-full justify-between">
+                        <div className="flex flex-col justify-center items-center gap-2">
+                            <Image src="/steering-wheel.svg" width={20} height={20} alt="steering wheel" />
+                            <p className="text-[14px] leading-[17px]">
+                                {transmission === "a" ? "Automatic" : "Manual"}
+                            </p>
+                        </div>
+                        <div className="car-card__icon">
+                            <Image src="/tire.svg" width={20} height={20} alt="seat" />
+                            <p className="car-card__icon-text">{drive.toUpperCase()}</p>
+                        </div>
+                        <div className="car-card__icon">
+                            <Image src="/gas.svg" width={20} height={20} alt="seat" />
+                            <p className="car-card__icon-text">{city_mpg} MPG</p>
+                        </div>
+                    </div>
+                    <div className="car-card__btn-container">
+                        <Button
+                            title='View More'
+                            containerStyles='w-full py-[16px] rounded-full bg-[#1769AC]'
+                            textStyles='text-white text-[14px] leading-[17px] font-bold'
+                            rightIcon='/right-arrow.svg'
+                            handleClick={() => setIsOpen(true)}
+                        />
+                    </div>
+                </div>
+            </div>
+            <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
         </div>
     )
 };

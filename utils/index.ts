@@ -1,4 +1,4 @@
-import { FilterProps } from '@/types';
+import { CarProps, FilterProps } from '@/types';
 
 export const updateSearchParams = (type: string, value: string) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -27,13 +27,18 @@ export async function fetchData(filters: FilterProps) {
 }
 
 export const calculateRent = (city_mpg: number, year: number) => {
+    
     const basePerDay = 50;  // in dollars per day
     const mileageFactor= 0.1; // additional per 1 mile driven
-    const ageFactor = 0.05;
+    const ageFactor = 0.55;
 
     const mileageRate = city_mpg * mileageFactor;
     const ageRate = (new Date().getFullYear() - year) * ageFactor;
     const rentalPerDay = basePerDay + mileageRate + ageRate;
-    
+
     return rentalPerDay.toFixed(0);
 }
+
+export const generateCarUrl = (car: CarProps, angle?: string) => {
+
+};
