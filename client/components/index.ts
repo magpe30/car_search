@@ -10,8 +10,7 @@ import SearchManufacturer from './SearchManufacturer';
 
 export {
     Button, CarCard, CarDetails, CustomFilter, Footer, Hero,
-    Navbar,
-    SearchBar,
+    Navbar, SearchBar,
     SearchManufacturer
 };
 
