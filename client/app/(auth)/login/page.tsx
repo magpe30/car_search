@@ -8,7 +8,7 @@ import { UserContext } from "../../../context/UserContext";
 const Login = () => {
     const [error, setError] = useState(null);
     const { setUser, user } = useContext(UserContext);
-    console.log(setUser, user);
+    
     const router = useRouter();
 
     const handleSubmit = async (e: any) => {
@@ -19,6 +19,7 @@ const Login = () => {
         try {
             const res  = await fetch("http://localhost:4000/login", {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -30,10 +31,8 @@ const Login = () => {
             const result = await res.json();
             setUser(result);
             router?.push("/profile");
-            console.log(email);
         } catch (err: any) {
             setError(err);
-            console.log(err);
         }
     };
 
