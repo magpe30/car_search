@@ -1,4 +1,4 @@
-import { CarProps, FilterProps } from '@/types';
+import { FilterProps } from '@/types';
 
 export const updateSearchParams = (type: string, value: string) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -38,7 +38,3 @@ export const calculateRent = (city_mpg: number, year: number) => {
 
     return rentalPerDay.toFixed(0);
 }
-
-export const generateCarUrl = (car: CarProps, angle?: string) => {
-
-};

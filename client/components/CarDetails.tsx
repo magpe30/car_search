@@ -9,9 +9,16 @@ interface CarDetailsProps {
     isOpen: boolean,
     closeModal: () => void,
     car: CarProps,
+    openBooking: () => void,
 }
 
-const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
+const CarDetails = ({ isOpen, closeModal, car, openBooking }: CarDetailsProps) => {
+
+    const handleBooking = () => {
+        openBooking();
+        closeModal();
+    };
+
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -69,7 +76,7 @@ const CarDetails = ({ isOpen, closeModal, car }: CarDetailsProps) => {
                                     containerStyles='w-full py-[16px] rounded-full bg-[#1769AC]'
                                     textStyles='text-white text-[14px] leading-[17px] font-bold'
                                     rightIcon='/right-arrow.svg'
-                                    handleClick={() => console.log("booked")}
+                                    handleClick={handleBooking}
                                 />
                             </Dialog.Panel>
                         </Transition.Child>

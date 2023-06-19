@@ -1,5 +1,5 @@
 "use client"
-import { Button, CarDetails } from '@/components';
+import { Button, CarBooking, CarDetails } from '@/components';
 import { CarProps } from '@/types';
 import { calculateRent } from '@/utils';
 import Image from "next/image";
@@ -13,6 +13,9 @@ const CarCard = ({car}: CarCardProps) => {
     const { city_mpg, year, make, model, transmission, drive } = car;
     
     const [isOpen, setIsOpen] = useState(false);
+    const [isBookingOpen, setIsBookingOpen] = useState(false);
+
+    const price = calculateRent(city_mpg, year);
   
     return (
         <div className="car-card group">
@@ -24,7 +27,7 @@ const CarCard = ({car}: CarCardProps) => {
 
             <p className="flex mt-6 text-[32px] leading-[38px] font-extrabold">
                 <span className="self-start text-[14px] leading-[17px] font-semibold">$</span>
-                {calculateRent(city_mpg, year)}
+                {price}
                 <span className="self-end text-[14px] leading-[17px] font-medium">/day</span>
             </p>
 
@@ -60,7 +63,8 @@ const CarCard = ({car}: CarCardProps) => {
                     </div>
                 </div>
             </div>
-            <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
+            <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} openBooking={() => setIsBookingOpen(true)}/>
+            <CarBooking isOpen={isBookingOpen} closeModal={() => setIsBookingOpen(false)} car={car} price={price}/>
         </div>
     )
 };
