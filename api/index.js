@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
+const Booking = require('./models/Booking');
 const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
@@ -20,6 +21,15 @@ app.use(cors({
 }));
 
 mongoose.connect(process.env.MONGO_URL);
+
+const getUserDataFromToken = (req) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(req.cookies.token, jwtSecret, {}, async(err, userData) => {
+            if(err) throw err;
+            resolve(userData)
+        });
+    });
+};
 
 app.get('/test', (req, res) => {
     res.json("all good");
@@ -76,5 +86,23 @@ app.get('/profile', async(req, res) => {
 app.post('/logout', (req, res) => {
     res.cookie('token', '').json(true);
 });
+
+app.post('/bookings', async (req, res) => {
+    try {
+        const userData = await getUserDataFromToken(req);
+        const { checkIn, checkOut, name, phone, numberOfDays, totalPrice, carMake, carModel} = req.body;
+        const bookingCreated = await Booking.create({
+            user: userData.id, carMake, carModel, checkIn, checkOut, name, phone, numberOfDays, totalPrice
+        });
+        res.json(bookingCreated);
+    } catch(err) {
+        res.status(422).json(err);
+    }
+});
+
+app.get('/bookings', async(req, res) => {
+    const userData = await getUserDataFromToken(req);
+    res.json( await Booking.find({user: userData.id}));
+})
 
 app.listen(4000);

@@ -66,8 +66,8 @@ const CarBooking = ({ isOpen, closeModal, car, price}: CarBookingProps) => {
                                     <h2 className='font-semibold text-xl capitalize'>
                                         {car.make} {car.model}
                                     </h2>
-                                    <div className='mt-3 flex flex-wrap gap-4'>
-                                        <p className="flex mt-6 text-[32px] leading-[38px] font-extrabold">
+                                    <div className='mt-2 flex flex-wrap gap-4'>
+                                        <p className="flex mt-2 text-[32px] leading-[38px] font-extrabold">
                                             <span className="self-start text-[14px] leading-[17px] font-semibold">$</span>
                                                 {price}
                                             <span className="self-end text-[14px] leading-[17px] font-medium">/day</span>
@@ -101,11 +101,11 @@ const CarBooking = ({ isOpen, closeModal, car, price}: CarBookingProps) => {
                                         />
                                     </div>
                                     <div className="py-3">
-                                        <p className="flex mt-6 text-[20px] leading-[16px] font-extrabold">
+                                        <p className="flex text-[20px] leading-[16px] font-extrabold">
                                             Total Days: <span className="text-[20px] mx-2">{numberOfDays}</span>
                                         </p>
                                         <p className="flex mt-6 text-[20px] leading-[38px] font-extrabold">
-                                            Total: <span className="text-[30px] mx-2">${totalPrice}</span>
+                                            <span className="text-[35px] mx-2">${totalPrice}</span>
                                         </p>
                                         
                                     </div>
