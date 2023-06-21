@@ -1,3 +1,4 @@
+import BookingWidget from './BookingWidget';
 import Button from './Button';
 import CarBooking from './CarBooking';
 import CarCard from './CarCard';
@@ -10,7 +11,7 @@ import SearchBar from './SearchBar';
 import SearchManufacturer from './SearchManufacturer';
 
 export {
-    Button, CarBooking, CarCard, CarDetails, CustomFilter, Footer, Hero,
+    BookingWidget, Button, CarBooking, CarCard, CarDetails, CustomFilter, Footer, Hero,
     Navbar, SearchBar, SearchManufacturer
 };
 

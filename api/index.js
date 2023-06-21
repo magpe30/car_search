@@ -88,6 +88,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.post('/bookings', async (req, res) => {
+    mongoose.connect(process.env.MONGO_URL);
     try {
         const userData = await getUserDataFromToken(req);
         const { checkIn, checkOut, name, phone, numberOfDays, totalPrice, carMake, carModel} = req.body;
@@ -101,6 +102,7 @@ app.post('/bookings', async (req, res) => {
 });
 
 app.get('/bookings', async(req, res) => {
+    mongoose.connect(process.env.MONGO_URL);
     const userData = await getUserDataFromToken(req);
     res.json( await Booking.find({user: userData.id}));
 })

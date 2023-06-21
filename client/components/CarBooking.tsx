@@ -4,6 +4,7 @@ import { CarProps } from '@/types';
 import { Dialog, Transition } from "@headlessui/react";
 import { differenceInCalendarDays } from "date-fns";
 import Image from 'next/image';
+import { useRouter } from "next/navigation";
 import { Fragment, useState } from 'react';
 
 interface CarBookingProps {
@@ -18,14 +19,47 @@ const CarBooking = ({ isOpen, closeModal, car, price}: CarBookingProps) => {
     const [checkOut,setCheckOut] = useState('');
     const [name,setName] = useState('');
     const [phone,setPhone] = useState('');
+    const [detailsError, setDetailsError] = useState(false);
+    const [isError, setIsError] = useState(false);
+
+    const router = useRouter();
 
     let numberOfDays = 0;
     let totalPrice = 0;
+    const carMake = car?.make;
+    const carModel = car?.model;
 
     if (checkIn && checkOut) {
         numberOfDays = differenceInCalendarDays(new Date(checkOut), new Date(checkIn));
 
         totalPrice = numberOfDays * Number(price);
+    }
+
+    const handleMakingBooking = async() => {
+        if(!checkIn && !checkOut && !name && !phone) {
+            setDetailsError(true);
+            return;
+        }
+
+        setDetailsError(false);
+
+        try {
+            const response = await fetch("http://localhost:4000/bookings", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    checkIn, checkOut, name, phone, numberOfDays, totalPrice, carMake, carModel
+                })
+            })
+            
+            response.status === 200 && router.push("/profile");
+        } catch(err) {
+            setIsError(true);
+            console.log(err);
+        }
     }
     
     return (
@@ -110,12 +144,13 @@ const CarBooking = ({ isOpen, closeModal, car, price}: CarBookingProps) => {
                                         
                                     </div>
                                 </div>
+                                { detailsError && <p className="mt-3 text-center bg-red-200 py-2 rounded-lg text-red-600">Please fill out the details</p> }
                                 <Button
                                     title='Complete booking'
                                     containerStyles='w-full py-[16px] rounded-full bg-[#1769AC]'
                                     textStyles='text-white text-[14px] leading-[17px] font-bold'
                                     rightIcon='/right-arrow.svg'
-                                    handleClick={() => console.log("booking here")}
+                                    handleClick={() => handleMakingBooking()}
                                 />
                             </Dialog.Panel>
                         </Transition.Child>
